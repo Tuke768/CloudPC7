@@ -5,15 +5,25 @@ on: [push, workflow_dispatch]
 jobs:
   build:
 
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
+    - name: Install ngrok dependencies
+      run: sudo apt-get install -y unzip wget
+    - name: Download ngrok
+      run: wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.zip -O ngrok.zip
+    - name: Extract ngrok
+      run: unzip ngrok.zip
+    - name: Authenticate ngrok
+      run: ./ngrok authtoken $NGROK_AUTH_TOKEN
+      env:
+        NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
     - name: Start SSH service
       run: sudo service ssh start
     - name: Create SSH user
       run: |
-        sudo useradd -m github_runner
-        echo 'github_runner:P@ssw0rd!' | sudo chpasswd
-        sudo usermod -aG sudo github_runner
-    - name: Show public IP
-      run: curl ifconfig.me
+        sudo useradd -m King
+        echo 'King:P@ssw0rd!' | sudo chpasswd
+        sudo usermod -aG sudo King
+    - name: Create ngrok tunnel for SSH
+      run: ./ngrok tcp 22
