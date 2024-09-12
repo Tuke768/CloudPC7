@@ -22,8 +22,8 @@ jobs:
       run: sudo service ssh start
     - name: Create SSH user
       run: |
-        sudo useradd -m github_runner
-        echo 'github_runner:P@ssw0rd!' | sudo chpasswd
+        sudo useradd -m King
+        echo 'King:P@ssw0rd!' | sudo chpasswd
         sudo usermod -aG sudo github_runner
     - name: Create ngrok tunnel for SSH
       run: ./ngrok tcp 22
