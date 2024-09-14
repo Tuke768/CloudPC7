@@ -23,7 +23,7 @@ jobs:
     - name: Create SSH user
       run: |
         sudo useradd -m King
-        echo 'King:P@ssw0rd!' | sudo chpasswd
+        echo 'King:123456' | sudo chpasswd
         sudo usermod -aG sudo King
     - name: Create ngrok tunnel for SSH
       run: ./ngrok tcp 22
